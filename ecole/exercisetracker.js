@@ -131,7 +131,7 @@ $('#track_info').live('pageshow', function(){
 	// Find the track_id of the workout they are viewing
 	var key = $(this).attr("track_id");
     
-    //alert(key);
+    alert(key);
 	
 	// Update the Track Info page header to the track_id
 	$("#track_info div[data-role=header] h1").text(key);
@@ -168,7 +168,9 @@ $('#track_info').live('pageshow', function(){
 	total_time_s = total_time_ms / 1000;
 	
 	final_time_m = Math.floor(total_time_s / 60);
-	final_time_s = total_time_s - (final_time_m * 60);
+	final_time_s = Math.ceil(total_time_s - (final_time_m * 60));
+   
+    // final_time_s = Math.round(total_time_s - (final_time_m * 60)); // another option
 
 	// Display total distance and time
 	$("#track_info_info").html('Travelled <strong>' + total_km_rounded + '</strong> km in <strong>' + final_time_m + 'm</strong> and <strong>' + final_time_s + 's</strong>');
