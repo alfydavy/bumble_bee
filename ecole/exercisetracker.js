@@ -168,7 +168,8 @@ $('#track_info').live('pageshow', function(){
 	total_time_s = total_time_ms / 1000;
 	
 	final_time_m = Math.floor(total_time_s / 60);
-	final_time_s = Math.ceil(total_time_s - (final_time_m * 60));
+    
+	final_time_s = Math.ceil(total_time_s - (final_time_m * 60)); // added ceil function
    
     // final_time_s = Math.round(total_time_s - (final_time_m * 60)).toFixed(2); // another option
 
