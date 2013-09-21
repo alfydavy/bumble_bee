@@ -14,12 +14,16 @@ function gps_distance(lat1, lon1, lat2, lon2)
     return d;
 }
 
+
+
+
 document.addEventListener("deviceready", function(){
 	
 	if(navigator.network.connection.type == Connection.NONE){
 		$("#home_network_button").text('No Internet Access')
 								 .attr("data-icon", "delete")
 								 .button('refresh');
+        
 	}
 
 });
@@ -85,6 +89,10 @@ $("#startTracking_stop").live('click', function(){
 	$("#track_id").val("").show();
 	
 	$("#startTracking_status").html("Stopped tracking workout: <strong>" + track_id + "</strong>");
+    
+       // adding accelerometer functionaly to compute the nos of steps taken
+    
+    // navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
 
 });
 
@@ -176,7 +184,9 @@ $('#track_info').live('pageshow', function(){
 	// Display total distance and time
 	$("#track_info_info").html('Travelled <strong>' + total_km_rounded + '</strong> km in <strong>' + final_time_m + 'm</strong> and <strong>' + final_time_s + 's</strong>');
 	
-	// Set the initial Lat and Long of the Google Map
+	   
+    
+    // Set the initial Lat and Long of the Google Map
 	
     var myLatLng = new google.maps.LatLng(data[0].coords.latitude, data[0].coords.longitude);
     //var myLatLng = new google.maps.LatLng(12.936118600000000000, 77.605952000000000000);
@@ -218,3 +228,45 @@ $('#track_info').live('pageshow', function(){
    
 		
 });
+
+
+// adding accelerometer functionality
+
+    function onSuccess(acceleration) {
+        //alert('Acceleration X: ' + acceleration.x + '\n' +
+              'Acceleration Y: ' + acceleration.y + '\n' +
+              'Acceleration Z: ' + acceleration.z + '\n' +
+              'Timestamp: '      + acceleration.timestamp + '\n');
+        
+            x= acceleration.x;
+        	y= acceleration.y;
+        	z= acceleration.z;
+            acc_timestamp=acceleration.timestamp;
+        
+        //adding steps
+        	
+        stepcount=0;
+       	 length = sqrt(x * x + y * y + z * z);
+			if(length>=2){
+   				stepcount+=1;
+				}
+        
+        // Display total Steps
+	$("#track_info_step").html('Travelled <strong>' + stepcount + '</strong> Steps  <strong>');
+	
+	
+        
+    }
+
+    // onError: Failed to get the acceleration
+    //
+    function onError() {
+        alert('onError!');
+    }
+
+
+
+
+
+
+
