@@ -230,6 +230,7 @@ $('#track_info').live('pageshow', function(){
 });
 
 
+/*
 // adding accelerometer functionality
 
     function onSuccess(acceleration) {
@@ -265,7 +266,7 @@ $('#track_info').live('pageshow', function(){
     }
 
 
-
+*/
 
 
 
